@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Britain in the Dark Ages (South sheet)</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+
+<style>
+.range {
+  position:absolute;
+  width:100%;
+  }
+.leaflet-top .leaflet-control-zoom {
+  top:20px;
+  }
+</style>
+
+<div id='map'></div>
+<input id='range' class='range' type='range' min='0' max='1.0' step='any' />
+
+<script>
+  L.mapbox.accessToken = 'pk.eyJ1IjoiYW1lcmNhZGVyIiwiYSI6IkM1VkRydmcifQ.5gRgRSnMU5h1qL5Uwb1OMg';
+  var map = L.mapbox.map('map');
+  L.mapbox.tileLayer('mapbox.streets').addTo(map);
+
+  var overlay = L.mapbox.tileLayer('amercader.909e1f89').addTo(map);
+
+  var range = document.getElementById('range');
+
+  function setOpacity() {
+    overlay.setOpacity(range.value);
+  }
+
+  range['oninput' in range ? 'oninput' : 'onchange'] = setOpacity;
+  map.on('move', setOpacity);
+  map.setView([53.8655, -2.4280], 7);
+
+  setOpacity();
+</script>
+
+</body>
+</html>
+
+
